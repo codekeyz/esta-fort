@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- START xml_defaults -->
+<defaultsMap>
+    <entry>
+        <key>enable_location</key>
+        <value>false</value>
+    </entry>
+    <entry>
+        <key>enable_geofence</key>
+        <value>false</value>
+    </entry>
+</defaultsMap>
