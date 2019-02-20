@@ -21,8 +21,6 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
     // Android Support Libraries
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support:support-media-compat:28.0.0'
@@ -38,13 +36,17 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-    // Firebase Dependencies
+    // Other Firebase/Play services deps
     implementation 'com.google.firebase:firebase-core:16.0.7'
     implementation 'com.google.firebase:firebase-auth:16.1.0'
     implementation 'com.google.firebase:firebase-firestore:18.0.1'
     implementation 'com.google.firebase:firebase-messaging:17.3.4'
-    implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
     implementation 'com.google.firebase:firebase-config:16.3.0'
+    implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
+
+    // FirebaseUI for Firebase Auth
+    implementation 'com.firebaseui:firebase-ui-auth:4.3.1'
+    implementation 'com.google.android.gms:play-services-auth:16.0.1'
 
     // Butterknife
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
