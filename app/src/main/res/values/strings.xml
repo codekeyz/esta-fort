@@ -9,18 +9,12 @@
      -->
     <string name="default_notification_channel_name" translatable="true">Esta-Fort</string>
     <string name="fcm_message">FCM Message</string>
-    <string name="all_restaurants">All Restaurants</string>
+    <string name="all_services">All Services</string>
     <string name="sort_by_rating">Sort by Rating</string>
     <string name="message_no_results">Oops, couldn\'t find any results\nthat matched your filter</string>
     <string name="divider_bullet">•</string>
     <string name="sorted_by_rating">sorted by rating</string>
 
-
-
-
     <!-- Menu Item Resources -->
-    <string name="action_settings">Settings</string>
     <string name="action_profile">Profile</string>
-
-
 </resources>
