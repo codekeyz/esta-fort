@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 apply plugin: 'com.google.gms.google-services'
 
 android {
@@ -50,7 +51,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
 
     // Butterknife
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    kapt 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.jakewharton:butterknife:8.8.1'
 
     // Android architecture components
@@ -62,4 +63,8 @@ dependencies {
     implementation 'me.zhanghai.android.materialratingbar:library:1.3.2'
     implementation 'com.jakewharton.timber:timber:4.7.1'
     implementation 'com.github.arthurghazaryan:floatingactionmenu:1.0.0'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }
