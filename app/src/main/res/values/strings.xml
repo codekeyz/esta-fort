@@ -28,4 +28,7 @@
     <string name="available_drivers">Available Drivers</string>
     <string name="status">Status</string>
     <string name="action_rides">My Rides</string>
+    <string name="request_placed">Request Placed</string>
+    <string name="driver">Driver</string>
+    <string name="your_requests">Your Requests</string>
 </resources>

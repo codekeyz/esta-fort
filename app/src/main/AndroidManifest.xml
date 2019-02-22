@@ -28,6 +28,7 @@
         <activity android:name=".home.HomeActivity" android:launchMode="singleTop" android:screenOrientation="portrait"/>
         <activity android:name=".profile.ProfileActivity" android:launchMode="singleTop" android:screenOrientation="portrait"/>
         <activity android:name=".booking.DriverActivity" android:launchMode="singleTop" android:screenOrientation="portrait" />
+        <activity android:name=".request.RequestsActivity" android:launchMode="singleTop" android:screenOrientation="portrait" />
 
         <!-- [START fcm_default_icon] -->
         <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
