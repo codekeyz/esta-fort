@@ -16,7 +16,9 @@ import android.view.View;
 import com.firebase.ui.auth.AuthUI;
 import com.hoversoftsoln.esta_fort.R;
 import com.hoversoftsoln.esta_fort.booking.DriverActivity;
+import com.hoversoftsoln.esta_fort.core.BaseActivity;
 import com.hoversoftsoln.esta_fort.profile.ProfileActivity;
+import com.hoversoftsoln.esta_fort.request.RequestsActivity;
 import com.hoversoftsoln.esta_fort.splash.SplashActivity;
 
 import butterknife.BindView;
@@ -25,7 +27,7 @@ import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
 import static com.hoversoftsoln.esta_fort.utils.Constants.SELECT_DRIVER_INTENT;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends BaseActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -124,6 +126,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void openRides() {
+        Intent intent = new Intent(this, RequestsActivity.class);
+        startActivity(intent);
     }
 
     private void openProfile() {

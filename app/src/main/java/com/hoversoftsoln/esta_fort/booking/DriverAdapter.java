@@ -1,4 +1,4 @@
-package com.hoversoftsoln.esta_fort.home;
+package com.hoversoftsoln.esta_fort.booking;
 
 import android.Manifest;
 import android.content.Context;
@@ -50,7 +50,7 @@ public class DriverAdapter extends RecyclerView.Adapter<DriverAdapter.DriverView
     @NonNull
     @Override
     public DriverViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.driver_list, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_driver, viewGroup, false);
         return new DriverViewHolder(view);
     }
 

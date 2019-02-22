@@ -1,7 +1,14 @@
 package com.hoversoftsoln.esta_fort;
 
 import android.app.Application;
+import android.support.annotation.NonNull;
+import android.util.Log;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
@@ -11,9 +18,12 @@ import static timber.log.Timber.DebugTree;
 
 public class EstaFort extends Application {
 
+    private static final String TAG = EstaFort.class.getSimpleName();
+
     @Override
     public void onCreate() {
         super.onCreate();
+
 
         if (BuildConfig.DEBUG) {
 

@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class DriverActivityViewModel extends ViewModel {
+public class DriverViewModel extends ViewModel {
 
     private MutableLiveData<List<Driver>> drivers;
     private MutableLiveData<Boolean> loadingService;
@@ -30,10 +30,10 @@ public class DriverActivityViewModel extends ViewModel {
     private CollectionReference requestsCollection;
     private ListenerRegistration driversRegistration;
 
-    public DriverActivityViewModel() {
+    public DriverViewModel() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         this.driversCollection = db.collection("Drivers").whereEqualTo("status", 1);
-        this.requestsCollection = db.collection( "Requests");
+        this.requestsCollection = db.collection("Requests");
     }
 
     public LiveData<List<Driver>> getDrivers() {
@@ -68,7 +68,7 @@ public class DriverActivityViewModel extends ViewModel {
             this.loadingService.postValue(false);
             if (qdocs != null) {
                 driverList.clear();
-                for (DocumentSnapshot d:
+                for (DocumentSnapshot d :
                         qdocs.getDocuments()) {
                     Driver driver = d.toObject(Driver.class);
                     if (driver != null) {
@@ -96,11 +96,12 @@ public class DriverActivityViewModel extends ViewModel {
 
     void onDriverClick(Activity context, Driver driver) {
         if (dialog == null) {
-           dialog = new AlertDialog.Builder(context)
+            dialog = new AlertDialog.Builder(context)
                     .setTitle("Request Shuttle")
                     .setMessage("You are requesting a shuttle. " + driver.getUsername())
                     .setPositiveButton("Proceed", (dialog, which) -> {
                         Request request = new Request();
+                        request.setDriverName(driver.getUsername());
                         request.setUserID(FirebaseAuth.getInstance().getCurrentUser().getUid());
                         request.setDriverID(driver.getId());
                         request.setDateCreated(new Date().getTime());
@@ -111,7 +112,7 @@ public class DriverActivityViewModel extends ViewModel {
                     .create();
         }
 
-        if(!dialog.isShowing()){
+        if (!dialog.isShowing()) {
             dialog.show();
         }
     }
