@@ -1,8 +1,8 @@
-package com.hoversoftsoln.esta_fort.core.data
+package com.hoversoftsoln.esta_fort.data
 
 import com.google.firebase.firestore.PropertyName
 
-data class User(
+data class EstaUser(
         @get:PropertyName("username")
         @set:PropertyName("username") var username: String = "",
         @get:PropertyName("email")
