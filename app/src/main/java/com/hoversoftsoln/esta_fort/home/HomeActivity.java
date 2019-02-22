@@ -1,6 +1,7 @@
 package com.hoversoftsoln.esta_fort.home;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +13,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.firebase.ui.auth.AuthUI;
 import com.hoversoftsoln.esta_fort.R;
+import com.hoversoftsoln.esta_fort.profile.ProfileActivity;
 import com.hoversoftsoln.esta_fort.utils.FabMenuAdapter;
 
 import butterknife.BindView;
@@ -85,6 +88,20 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_profile:
+                openProfile();
+                break;
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void openProfile() {
+        Intent intent = new Intent(this, ProfileActivity.class);
+        startActivity(intent);
+    }
+
+    private void saveProfileUpdate() {
+
     }
 }

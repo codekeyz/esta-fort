@@ -13,10 +13,17 @@ import android.support.v4.app.NotificationCompat;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
 import com.firebase.jobdispatcher.Job;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.hoversoftsoln.esta_fort.home.HomeActivity;
 import com.hoversoftsoln.esta_fort.R;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import timber.log.Timber;
 
@@ -118,6 +125,11 @@ public class EstaFortMessagingService extends FirebaseMessagingService {
      * @param token The new token.
      */
     private void sendRegistrationToServer(String token) {
-        // TODO: Implement this method to send token to your app server.
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            Map<String, Object> datamap = new HashMap<>();
+            datamap.put("token", token);
+            FirebaseFirestore.getInstance().document("Users/" + user.getUid()).set(datamap, SetOptions.merge());
+        }
     }
 }

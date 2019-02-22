@@ -1,6 +1,8 @@
 package com.hoversoftsoln.esta_fort.data
 
 import com.google.firebase.firestore.PropertyName
+import java.util.*
+import kotlin.collections.HashMap
 
 data class EstaUser(
         @get:PropertyName("username")
@@ -8,4 +10,8 @@ data class EstaUser(
         @get:PropertyName("email")
         @set:PropertyName("email") var email: String = "",
         @get:PropertyName("telephone")
-        @set:PropertyName("telephone") var telephone: String = "")
+        @set:PropertyName("telephone") var telephone: String = "",
+        @get:PropertyName("location")
+        @set:PropertyName("location") var location: String = "",
+        @set:PropertyName("token")
+        @get:PropertyName("token") var token: String = "")
