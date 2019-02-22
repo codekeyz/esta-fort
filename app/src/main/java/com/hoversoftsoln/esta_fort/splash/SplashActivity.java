@@ -38,20 +38,15 @@ public class SplashActivity extends AppCompatActivity {
         // View model
         splashViewModel = ViewModelProviders.of(this).get(SplashViewModel.class);
 
-        new Handler().postDelayed(new Runnable() {
+        new Handler().postDelayed(() -> {
 
-            @Override
-            public void run() {
+            materialProgressBar.setVisibility(View.GONE);
 
-                materialProgressBar.setVisibility(View.GONE);
-
-                if (shouldStartSignIn()) {
-                    startSignIn();
-                } else {
-                    startHome();
-                }
+            if (shouldStartSignIn()) {
+                startSignIn();
+            } else {
+                startHome();
             }
-
         }, SPLASH_TIME_OUT);
 
     }

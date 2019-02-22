@@ -1,4 +1,4 @@
-package com.hoversoftsoln.esta_fort.core.data
+package com.hoversoftsoln.esta_fort.data
 
 import com.google.firebase.firestore.PropertyName
 
