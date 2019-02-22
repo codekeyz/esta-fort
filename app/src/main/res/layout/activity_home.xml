@@ -105,7 +105,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/filter_bar_container"
         android:background="@android:color/white"
-        tools:listitem="@layout/item_restaurant" />
+        tools:listitem="@layout/item_service" />
 
     <!-- Shadow below toolbar -->
     <View
@@ -140,6 +140,13 @@
             android:textColor="@color/greyDisabled" />
 
     </LinearLayout>
+
+    <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+        android:id="@+id/loading"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerInParent="true"
+        />
 
     <uk.co.markormesher.android_fab.FloatingActionButton
         android:id="@+id/fab_menu"

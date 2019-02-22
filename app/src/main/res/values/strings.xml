@@ -17,4 +17,5 @@
 
     <!-- Menu Item Resources -->
     <string name="action_profile">Profile</string>
+    <string name="fmt_num_ratings" translatable="false">(%d)</string>
 </resources>
