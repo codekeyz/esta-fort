@@ -86,6 +86,11 @@ public class ProfileActivity extends AppCompatActivity {
                 this.userEmail.setText(user.getEmail());
                 this.userTelephone.setText(user.getTelephone());
                 this.userLocation.setText(user.getLocation());
+
+                this.etUsername.setText(user.getUsername());
+                this.etTelephone.setText(user.getTelephone());
+                this.etEmail.setText(user.getEmail());
+                this.etLocation.setText(user.getLocation());
             }else {
                 editLayout.setVisibility(View.VISIBLE);
             }
