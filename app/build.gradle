@@ -62,6 +62,8 @@ dependencies {
     implementation 'com.jakewharton.timber:timber:4.7.1'
     implementation 'com.github.arthurghazaryan:floatingactionmenu:1.0.0'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    //Circular ImageView
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
 }
 repositories {
     mavenCentral()
