@@ -3,6 +3,10 @@ package com.hoversoftsoln.esta_fort.home;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.graphics.Color;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -14,19 +18,19 @@ import com.hoversoftsoln.esta_fort.utils.FabMenuAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import uk.co.markormesher.android_fab.FloatingActionButton;
+
 public class HomeViewModel extends ViewModel {
 
     private MutableLiveData<List<Service>> services;
     private MutableLiveData<Boolean> loadingService;
 
-    private FabMenuAdapter fabMenuAdapter;
     private CollectionReference servicesCollection;
     private ListenerRegistration servicesRegistration;
 
     public HomeViewModel() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         this.servicesCollection = db.collection("Services");
-        fabMenuAdapter = new FabMenuAdapter();
     }
 
     public LiveData<List<Service>> getServices() {
@@ -53,6 +57,7 @@ public class HomeViewModel extends ViewModel {
         this.servicesRegistration = this.servicesCollection.addSnapshotListener((queryDocumentSnapshots, e) -> {
             this.loadingService.postValue(false);
             if (queryDocumentSnapshots != null) {
+                serviceList.clear();
                 for (DocumentSnapshot d :
                         queryDocumentSnapshots.getDocuments()) {
                     Service s = d.toObject(Service.class);
@@ -61,10 +66,6 @@ public class HomeViewModel extends ViewModel {
                 this.services.postValue(serviceList);
             }
         });
-    }
-
-    public FabMenuAdapter getFabMenuAdapter() {
-        return fabMenuAdapter;
     }
 
     @Override

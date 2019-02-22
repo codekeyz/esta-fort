@@ -4,19 +4,20 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.hoversoftsoln.esta_fort.R;
-import com.hoversoftsoln.esta_fort.core.data.EstaUser;
-import com.hoversoftsoln.esta_fort.splash.SplashViewModel;
 import com.hoversoftsoln.esta_fort.utils.FabMenuAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import timber.log.Timber;
+import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import uk.co.markormesher.android_fab.FloatingActionButton;
 
 public class HomeActivity extends AppCompatActivity {
@@ -27,7 +28,14 @@ public class HomeActivity extends AppCompatActivity {
     @BindView(R.id.fab_menu)
     FloatingActionButton fabLayout;
 
+    @BindView(R.id.loading)
+    MaterialProgressBar loader;
+
+    @BindView(R.id.recycler_services)
+    RecyclerView servicesRV;
+
     private HomeViewModel homeViewModel;
+    private ServiceAdapter serviceAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,19 +46,33 @@ public class HomeActivity extends AppCompatActivity {
 
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
 
-        EstaUser estaUser = new EstaUser();
-        estaUser.setUsername("Lomotey Edwin");
-        estaUser.setEmail("edwin@gmail.com");
-        estaUser.setTelephone("0244961291");
+        init();
 
+        homeViewModel.loadingService().observe(this, isloading -> {
+            if (isloading.booleanValue()) {
+                this.loader.setVisibility(View.VISIBLE);
+            }else {
+                this.loader.setVisibility(View.GONE);
+            }
+        });
+
+        homeViewModel.getServices().observe(this, data -> {
+            this.serviceAdapter.setServiceList(data);
+            this.serviceAdapter.notifyDataSetChanged();
+        });
+    }
+
+    private void init() {
+        // RecyclerView
+        servicesRV.setHasFixedSize(true);
+        servicesRV.setLayoutManager(new LinearLayoutManager(this));
+        serviceAdapter = new ServiceAdapter(this);
+        servicesRV.setAdapter(serviceAdapter);
+
+        // Fab Menu
         fabLayout.setContentCoverEnabled(true);
         fabLayout.setContentCoverColour(Color.argb(80, 0, 0, 0));
-        fabLayout.setSpeedDialMenuAdapter(homeViewModel.getFabMenuAdapter());
-
-        homeViewModel.getServices().observe(this, data ->
-                Toast.makeText(this, data.get(0).getTitle(), Toast.LENGTH_SHORT).show());
-
-        homeViewModel.loadingService().observe(this, res -> Timber.d(res  ? "Yes Loading": "Not Loading"));
+        fabLayout.setSpeedDialMenuAdapter(new FabMenuAdapter());
 
     }
 
