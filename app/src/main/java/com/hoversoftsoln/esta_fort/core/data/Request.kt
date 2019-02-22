@@ -3,6 +3,15 @@ package com.hoversoftsoln.esta_fort.core.data
 import com.google.firebase.firestore.PropertyName
 
 data class Request(
-        @get:PropertyName("title")
-        @set:PropertyName("title") var title: String = ""
+        @get:PropertyName("userID")
+        @set:PropertyName("userID") var userID: String = "",
+        @get:PropertyName("driverID")
+        @set:PropertyName("driverID") var driverID: String = "",
+        @get:PropertyName("date_created")
+        @set:PropertyName("date_created") var dateCreated: Long = 0,
+        @get:PropertyName("date_confirmed")
+        @set:PropertyName("date_confirmed") var dateConfirmed: Long = 0,
+        @get:PropertyName("status")
+        @set:PropertyName("status") var status: Long = 0
+
 )
