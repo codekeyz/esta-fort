@@ -11,6 +11,7 @@ import android.view.View;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.hoversoftsoln.esta_fort.R;
+import com.hoversoftsoln.esta_fort.core.BaseActivity;
 import com.hoversoftsoln.esta_fort.home.HomeActivity;
 
 import java.util.Arrays;
@@ -23,7 +24,7 @@ import static com.hoversoftsoln.esta_fort.utils.Constants.RC_SIGN_IN;
 import static com.hoversoftsoln.esta_fort.utils.Constants.SPLASH_TIME_OUT;
 
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BaseActivity {
 
     @BindView(R.id.progress)
     MaterialProgressBar materialProgressBar;
