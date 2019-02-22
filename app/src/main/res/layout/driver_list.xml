@@ -43,7 +43,7 @@
             style="@style/Widget.MaterialRatingBar.RatingBar.Indicator.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/driverName"
+            android:layout_alignStart="@+id/driverName"
             android:layout_below="@+id/driverName"
             android:layout_marginBottom="4dp"
             tools:rating="5"/>
@@ -61,8 +61,35 @@
             android:textColor="@color/greyDisabled"
             tools:text="(10)" />
 
+        <TextView
+            android:id="@+id/restaurant_item_category"
+            style="@style/AppTheme.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/driverName"
+            android:layout_below="@+id/driverRating"
+            android:textColor="@color/greySecondary"
+            android:text="@string/status" />
 
-            <ImageView
+        <TextView
+            android:id="@+id/restaurant_item_city_divider"
+            style="@style/AppTheme.TextDivider"
+            android:layout_alignTop="@+id/restaurant_item_category"
+            android:layout_toEndOf="@+id/restaurant_item_category"
+            android:text="@string/divider_bullet" />
+
+        <TextView
+            android:id="@+id/status"
+            style="@style/AppTheme.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/restaurant_item_category"
+            android:layout_toEndOf="@+id/restaurant_item_city_divider"
+            android:textColor="@color/greySecondary"
+            tools:text="Online" />
+
+
+        <ImageView
                 android:rotation="-90"
                 android:layout_below="@+id/driverRatingText"
                 android:layout_alignParentEnd="true"
