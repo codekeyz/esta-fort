@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hoversoftsoln.esta_fort">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+
     <application
         android:name=".EstaFort"
         android:allowBackup="true"
@@ -13,6 +16,7 @@
             android:screenOrientation="portrait"
             android:name=".splash.SplashActivity"
             android:label="@string/app_name"
+            android:launchMode="singleTop"
             android:theme="@style/AppTheme.Fullscreen"
            >
             <intent-filter>
@@ -21,8 +25,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".home.HomeActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".profile.ProfileActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".home.HomeActivity" android:launchMode="singleTop" android:screenOrientation="portrait"/>
+        <activity android:name=".profile.ProfileActivity" android:launchMode="singleTop" android:screenOrientation="portrait"/>
+        <activity android:name=".booking.DriverActivity" android:launchMode="singleTop" android:screenOrientation="portrait" />
 
         <!-- [START fcm_default_icon] -->
         <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
