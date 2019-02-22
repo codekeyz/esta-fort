@@ -91,7 +91,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_profile:
+            case R.id.menu_profile:
                 openProfile();
                 break;
             case R.id.menu_rides:

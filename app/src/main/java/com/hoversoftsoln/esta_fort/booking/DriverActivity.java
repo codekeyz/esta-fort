@@ -41,7 +41,7 @@ public class DriverActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         dialog = new ProgressDialog(this);
         dialog.setTitle("Placing Request");
-        dialog.setMessage("Please wait while your request is placed");
+        dialog.setMessage("Please wait while your request is processed");
 
         driverActivityViewModel = ViewModelProviders.of(this).get(DriverActivityViewModel.class);
         init();
@@ -52,16 +52,17 @@ public class DriverActivity extends AppCompatActivity {
 
         driverActivityViewModel.requestService().observe(this, data -> {
             if (data.first) {
-                if (!dialog.isShowing()){
+                if (!dialog.isShowing()) {
                     dialog.show();
                 }
-
-                if (data.second != null) {
-                    if (data.second.isSuccessful()) {
-                        Toast.makeText(this, "Your Request has been placed.", Toast.LENGTH_SHORT).show();
-                    }else {
-                        Toast.makeText(this, "An error occurred. Try again later", Toast.LENGTH_SHORT).show();
-                    }
+            } else {
+                if (dialog.isShowing()) {
+                    dialog.dismiss();
+                }
+                if (data.second) {
+                    Toast.makeText(this, "Your Request has been placed.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "An error occurred. Try again later", Toast.LENGTH_SHORT).show();
                 }
             }
         });

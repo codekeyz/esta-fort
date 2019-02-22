@@ -5,15 +5,10 @@ import android.app.AlertDialog;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
-import android.content.DialogInterface;
-import android.support.annotation.NonNull;
 import android.util.Pair;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
@@ -24,13 +19,12 @@ import com.hoversoftsoln.esta_fort.core.data.Request;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 public class DriverActivityViewModel extends ViewModel {
 
     private MutableLiveData<List<Driver>> drivers;
     private MutableLiveData<Boolean> loadingService;
-    private MutableLiveData<Pair<Boolean, Task>> requestService;
+    private MutableLiveData<Pair<Boolean, Boolean>> requestService;
     private AlertDialog dialog;
     private Query driversCollection;
     private CollectionReference requestsCollection;
@@ -60,7 +54,7 @@ public class DriverActivityViewModel extends ViewModel {
         return loadingService;
     }
 
-    public LiveData<Pair<Boolean, Task>> requestService() {
+    public LiveData<Pair<Boolean, Boolean>> requestService() {
         if (requestService == null) {
             requestService = new MutableLiveData<>();
         }
@@ -88,9 +82,9 @@ public class DriverActivityViewModel extends ViewModel {
     }
 
     private void sendRequest(Request request) {
-        this.requestService.postValue(new Pair<>(true, null));
+        this.requestService.postValue(new Pair<>(true, false));
         request.setDateCreated(new Date().getTime());
-        requestsCollection.add(request).addOnCompleteListener(task -> requestService.postValue(new Pair<>(false, task)));
+        requestsCollection.add(request).addOnCompleteListener(task -> requestService.postValue(new Pair<>(false, task.isSuccessful())));
     }
 
     @Override
@@ -117,6 +111,8 @@ public class DriverActivityViewModel extends ViewModel {
                     .create();
         }
 
-
+        if(!dialog.isShowing()){
+            dialog.show();
+        }
     }
 }
