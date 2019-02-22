@@ -40,14 +40,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
 
     @Override
     public void onBindViewHolder(@NonNull ServiceViewHolder viewHolder, int position) {
-        Service service = serviceList.get(position);
-        viewHolder.title.setText(service.getTitle());
-        viewHolder.desc.setText(service.getDesc());
-        Glide.with(context)
-                .load(service.getImage())
-                .into(viewHolder.image);
-        viewHolder.numrating.setText(context.getString(R.string.fmt_num_ratings, service.getRating()));
-        viewHolder.rating.setRating((float) service.getRating());
+        viewHolder.bind(serviceList.get(position));
     }
 
     @Override
@@ -77,9 +70,19 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
         @BindView(R.id.service_item_desc)
         TextView desc;
 
-        public ServiceViewHolder(@NonNull View itemView) {
+        ServiceViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+        }
+
+        void bind(Service service) {
+            title.setText(service.getTitle());
+            desc.setText(service.getDesc());
+            Glide.with(context)
+                    .load(service.getImage())
+                    .into(image);
+            numrating.setText(context.getString(R.string.fmt_num_ratings, service.getRating()));
+            rating.setRating((float) service.getRating());
         }
     }
 }

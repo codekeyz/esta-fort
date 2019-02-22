@@ -3,22 +3,15 @@ package com.hoversoftsoln.esta_fort.home;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
-import android.graphics.Color;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.hoversoftsoln.esta_fort.core.data.Service;
-import com.hoversoftsoln.esta_fort.utils.FabMenuAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import uk.co.markormesher.android_fab.FloatingActionButton;
 
 public class HomeViewModel extends ViewModel {
 
@@ -44,12 +37,14 @@ public class HomeViewModel extends ViewModel {
         return services;
     }
 
+
     public LiveData<Boolean> loadingService() {
         if (loadingService == null) {
             loadingService = new MutableLiveData<>();
         }
         return loadingService;
     }
+
 
     private void loadServices() {
         this.loadingService.postValue(true);
@@ -67,6 +62,7 @@ public class HomeViewModel extends ViewModel {
             }
         });
     }
+
 
     @Override
     protected void onCleared() {

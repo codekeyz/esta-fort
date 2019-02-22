@@ -2,8 +2,9 @@ package com.hoversoftsoln.esta_fort.home;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,17 +12,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.hoversoftsoln.esta_fort.R;
+import com.hoversoftsoln.esta_fort.booking.DriverActivity;
 import com.hoversoftsoln.esta_fort.profile.ProfileActivity;
-import com.hoversoftsoln.esta_fort.utils.FabMenuAdapter;
+import com.hoversoftsoln.esta_fort.splash.SplashActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
-import uk.co.markormesher.android_fab.FloatingActionButton;
+
+import static com.hoversoftsoln.esta_fort.utils.Constants.SELECT_DRIVER_INTENT;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -29,7 +31,7 @@ public class HomeActivity extends AppCompatActivity {
     Toolbar toolbar;
 
     @BindView(R.id.fab_menu)
-    FloatingActionButton fabLayout;
+    FloatingActionButton fab;
 
     @BindView(R.id.loading)
     MaterialProgressBar loader;
@@ -39,6 +41,8 @@ public class HomeActivity extends AppCompatActivity {
 
     private HomeViewModel homeViewModel;
     private ServiceAdapter serviceAdapter;
+
+    private AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +56,7 @@ public class HomeActivity extends AppCompatActivity {
         init();
 
         homeViewModel.loadingService().observe(this, isloading -> {
-            if (isloading.booleanValue()) {
+            if (isloading) {
                 this.loader.setVisibility(View.VISIBLE);
             }else {
                 this.loader.setVisibility(View.GONE);
@@ -61,7 +65,11 @@ public class HomeActivity extends AppCompatActivity {
 
         homeViewModel.getServices().observe(this, data -> {
             this.serviceAdapter.setServiceList(data);
-            this.serviceAdapter.notifyDataSetChanged();
+        });
+
+        fab.setOnClickListener(v -> {
+            Intent intent = new Intent(this, DriverActivity.class);
+            startActivityForResult(intent, SELECT_DRIVER_INTENT);
         });
     }
 
@@ -71,12 +79,6 @@ public class HomeActivity extends AppCompatActivity {
         servicesRV.setLayoutManager(new LinearLayoutManager(this));
         serviceAdapter = new ServiceAdapter(this);
         servicesRV.setAdapter(serviceAdapter);
-
-        // Fab Menu
-        fabLayout.setContentCoverEnabled(true);
-        fabLayout.setContentCoverColour(Color.argb(80, 0, 0, 0));
-        fabLayout.setSpeedDialMenuAdapter(new FabMenuAdapter());
-
     }
 
     @Override
@@ -92,16 +94,40 @@ public class HomeActivity extends AppCompatActivity {
             case R.id.action_profile:
                 openProfile();
                 break;
+            case R.id.menu_rides:
+                openRides();
+                break;
+            case R.id.menu_sign_out:
+                signout();
+                break ;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void signout() {
+        if (dialog == null) {
+         dialog =new AlertDialog.Builder(this)
+                    .setTitle("Sign Out")
+                    .setMessage("Are you sure you want to sign out ?")
+                    .setPositiveButton("YES", (dialog, which) -> {
+                        AuthUI.getInstance().signOut(HomeActivity.this);
+                        dialog.dismiss();
+                        Intent iii = new Intent(HomeActivity.this, SplashActivity.class);
+                        iii.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(iii);
+                    }).setNegativeButton("CANCEL", (dialog, which) -> dialog.dismiss())
+                    .create();
+        }
+        if (!dialog.isShowing()) {
+            dialog.show();
+        }
+    }
+
+    private void openRides() {
     }
 
     private void openProfile() {
         Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
-    }
-
-    private void saveProfileUpdate() {
-
     }
 }
