@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="2dp"
+    android:clickable="true"
+    android:elevation="8dp"
+    android:foreground="?attr/selectableItemBackground">
+
+    <RelativeLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/driver_image"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/pizza_monster"
+            android:scaleType="centerCrop"
+            />
+
+        <TextView
+            android:id="@+id/driverName"
+            style="@style/AppTheme.Subheader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/driver_image"
+            android:layout_marginBottom="4dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="-2dp"
+            android:layout_toEndOf="@+id/driver_image"
+            android:ellipsize="end"
+            android:maxLines="1"
+            tools:text="Mr. Driver One" />
+
+        <me.zhanghai.android.materialratingbar.MaterialRatingBar
+            android:id="@+id/driverRating"
+            style="@style/Widget.MaterialRatingBar.RatingBar.Indicator.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/driverName"
+            android:layout_below="@+id/driverName"
+            android:layout_marginBottom="4dp"
+            tools:rating="5"/>
+
+        <TextView
+            android:id="@+id/driverRatingText"
+            style="@style/AppTheme.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/driverRating"
+            android:layout_alignTop="@+id/driverRating"
+            android:layout_marginStart="4dp"
+            android:layout_toEndOf="@+id/driverRating"
+            android:gravity="center_vertical"
+            android:textColor="@color/greyDisabled"
+            tools:text="(10)" />
+
+
+            <ImageView
+                android:rotation="-90"
+                android:layout_below="@+id/driverRatingText"
+                android:layout_alignParentEnd="true"
+                app:srcCompat="@drawable/ic_phone_black_24dp"
+                android:id="@+id/callDriver"
+                android:layout_width="25dp"
+                android:tint="@color/colorPrimary"
+                android:layout_height="25dp"
+                android:contentDescription="@string/call_driver" />
+
+
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>
