@@ -9,6 +9,6 @@ data class Service(
         @set:PropertyName("desc") var desc: String = "",
         @get:PropertyName("image")
         @set:PropertyName("image") var image: String = "",
-        @set:PropertyName("issue_date")
-        @get:PropertyName("issue_date") var issue_date: Long = 0
+        @get:PropertyName("rating")
+        @set:PropertyName("rating") var rating: Int = 0
 )
