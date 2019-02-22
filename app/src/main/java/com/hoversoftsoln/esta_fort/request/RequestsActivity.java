@@ -4,7 +4,6 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -13,13 +12,12 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.hoversoftsoln.esta_fort.R;
-import com.hoversoftsoln.esta_fort.booking.DriverAdapter;
-import com.hoversoftsoln.esta_fort.booking.DriverViewModel;
+import com.hoversoftsoln.esta_fort.core.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RequestsActivity extends AppCompatActivity {
+public class RequestsActivity extends BaseActivity {
 
     @BindView(R.id.refreshLayout)
     SwipeRefreshLayout refreshLayout;
