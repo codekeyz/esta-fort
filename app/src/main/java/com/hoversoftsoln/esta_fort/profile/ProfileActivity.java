@@ -68,21 +68,17 @@ public class ProfileActivity extends BaseActivity {
 
         profileViewModel.loadingService().observe(this, loading -> {
             if (loading) {
-                updateProfile.setVisibility(View.GONE);
                 loader.setVisibility(View.VISIBLE);
                 editLayout.setVisibility(View.GONE);
                 dataLayout.setVisibility(View.GONE);
             }else {
-                updateProfile.setVisibility(View.VISIBLE);
                 loader.setVisibility(View.GONE);
-                dataLayout.setVisibility(View.VISIBLE);
             }
         });
 
         profileViewModel.getUserAccount().observe(this, user -> {
             if (user != null) {
-                editLayout.setVisibility(View.GONE);
-                dataLayout.setVisibility(View.VISIBLE);
+                this.dataLayout.setVisibility(View.VISIBLE);
                 this.username.setText(user.getUsername());
                 this.userEmail.setText(user.getEmail());
                 this.userTelephone.setText(user.getTelephone());
@@ -93,7 +89,8 @@ public class ProfileActivity extends BaseActivity {
                 this.etEmail.setText(user.getEmail());
                 this.etLocation.setText(user.getLocation());
             }else {
-                editLayout.setVisibility(View.VISIBLE);
+                this.editLayout.setVisibility(View.VISIBLE);
+                this.dataLayout.setVisibility(View.GONE);
             }
         });
 
