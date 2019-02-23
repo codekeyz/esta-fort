@@ -8,10 +8,9 @@
         It should describe the category of notifications that will be sent through this channel
      -->
     <string name="default_notification_channel_name" translatable="true">Esta-Fort</string>
-    <string name="fcm_message">FCM Message</string>
     <string name="all_services">All Services</string>
     <string name="sort_by_rating">Sort by Rating</string>
-    <string name="message_no_results">Oops, couldn\'t find any results\nthat matched your filter</string>
+    <string name="message_no_results">Oops, couldn\'t find any data now. Try again later</string>
     <string name="divider_bullet">•</string>
     <string name="sorted_by_rating">sorted by rating</string>
 
