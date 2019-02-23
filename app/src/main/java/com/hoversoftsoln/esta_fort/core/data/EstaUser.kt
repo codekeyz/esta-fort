@@ -1,8 +1,6 @@
 package com.hoversoftsoln.esta_fort.data
 
 import com.google.firebase.firestore.PropertyName
-import java.util.*
-import kotlin.collections.HashMap
 
 data class EstaUser(
         @get:PropertyName("username")
