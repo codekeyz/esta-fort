@@ -25,7 +25,7 @@ public class RequestsViewModel extends ViewModel {
     public RequestsViewModel() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        this.requestsCollection = db.collection("Requests").whereEqualTo("userID", user.getUid()).orderBy("date_created", Query.Direction.ASCENDING);
+        this.requestsCollection = db.collection("Requests").whereEqualTo("userID", user.getUid());
     }
 
     public LiveData<List<Request>> getRequests() {
