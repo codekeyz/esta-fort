@@ -3,6 +3,7 @@ package com.hoversoftsoln.esta_fort.home;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.util.Log;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -51,6 +52,7 @@ public class HomeViewModel extends ViewModel {
         List<Service> serviceList = new ArrayList<>();
         this.servicesRegistration = this.servicesCollection.addSnapshotListener((queryDocumentSnapshots, e) -> {
             this.loadingService.postValue(false);
+            Log.d("Document Data %s", queryDocumentSnapshots.getDocuments().toString());
             if (queryDocumentSnapshots != null) {
                 serviceList.clear();
                 for (DocumentSnapshot d :

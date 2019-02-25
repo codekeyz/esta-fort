@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -24,8 +23,6 @@ import com.hoversoftsoln.esta_fort.splash.SplashActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
-
-import static com.hoversoftsoln.esta_fort.utils.Constants.SELECT_DRIVER_INTENT;
 
 public class HomeActivity extends BaseActivity {
 
@@ -71,7 +68,7 @@ public class HomeActivity extends BaseActivity {
 
         fab.setOnClickListener(v -> {
             Intent intent = new Intent(this, DriverActivity.class);
-            startActivityForResult(intent, SELECT_DRIVER_INTENT);
+            startActivity(intent);
         });
     }
 
