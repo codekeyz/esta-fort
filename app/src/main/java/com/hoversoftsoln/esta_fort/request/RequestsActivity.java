@@ -54,7 +54,6 @@ public class RequestsActivity extends BaseActivity {
                 emptyView.setVisibility(View.VISIBLE);
                 requestsRV.setVisibility(View.GONE);
             }else {
-                Toast.makeText(this, requests.toArray().toString(), Toast.LENGTH_SHORT).show();
                 emptyView.setVisibility(View.GONE);
                 requestsRV.setVisibility(View.VISIBLE);
                 requestAdapter.setRequestList(requests);

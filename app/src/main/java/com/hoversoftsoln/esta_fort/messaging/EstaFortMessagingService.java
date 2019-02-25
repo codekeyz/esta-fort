@@ -24,6 +24,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.hoversoftsoln.esta_fort.home.HomeActivity;
 import com.hoversoftsoln.esta_fort.R;
+import com.hoversoftsoln.esta_fort.request.RequestsActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -121,7 +122,7 @@ public class EstaFortMessagingService extends FirebaseMessagingService {
 
 
     private void sendDataNotification(Map<String, String> remoteMessage) {
-        Intent intent = new Intent(this, HomeActivity.class);
+        Intent intent = new Intent(this, RequestsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);

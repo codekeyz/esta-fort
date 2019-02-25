@@ -30,4 +30,6 @@
     <string name="request_placed">Request Placed</string>
     <string name="driver">Driver</string>
     <string name="your_requests">Your Requests</string>
+    <string name="no_network">Check your Internet Connection and Try again</string>
+    <string name="sign_in_cancelled">Signing was cancelled</string>
 </resources>
