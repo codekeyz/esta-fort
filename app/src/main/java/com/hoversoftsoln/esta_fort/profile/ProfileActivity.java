@@ -3,12 +3,13 @@ package com.hoversoftsoln.esta_fort.profile;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -18,21 +19,10 @@ import com.hoversoftsoln.esta_fort.data.EstaUser;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
 public class ProfileActivity extends BaseActivity {
 
-    @BindView(R.id.profile_image)
-    CircleImageView profileImage;
-    @BindView(R.id.username)
-    TextView username;
-    @BindView(R.id.userEmail)
-    TextView userEmail;
-    @BindView(R.id.userTelephone)
-    TextView userTelephone;
-    @BindView(R.id.userLocation)
-    TextView userLocation;
     @BindView(R.id.etTelephone)
     EditText etTelephone;
     @BindView(R.id.etUsername)
@@ -41,36 +31,34 @@ public class ProfileActivity extends BaseActivity {
     EditText etEmail;
     @BindView(R.id.etLocation)
     EditText etLocation;
-    @BindView(R.id.updateProfile)
-    Button updateProfile;
     @BindView(R.id.saveProfile)
     Button saveProfile;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     private ProfileViewModel profileViewModel;
 
     @BindView(R.id.editLayout)
     LinearLayout editLayout;
 
-    @BindView(R.id.dataLayout)
-    LinearLayout dataLayout;
-
     @BindView(R.id.loading)
     MaterialProgressBar loader;
+    private FirebaseAuth mFirebaseAuth;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        mFirebaseAuth = FirebaseAuth.getInstance();
         ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Profile");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         profileViewModel = ViewModelProviders.of(this).get(ProfileViewModel.class);
-
-        setDefaults();
 
         profileViewModel.loadingService().observe(this, loading -> {
             if (loading) {
                 loader.setVisibility(View.VISIBLE);
-                editLayout.setVisibility(View.GONE);
-                dataLayout.setVisibility(View.GONE);
             }else {
                 loader.setVisibility(View.GONE);
             }
@@ -78,25 +66,34 @@ public class ProfileActivity extends BaseActivity {
 
         profileViewModel.getUserAccount().observe(this, user -> {
             if (user != null) {
-                this.dataLayout.setVisibility(View.VISIBLE);
-                this.username.setText(user.getUsername());
-                this.userEmail.setText(user.getEmail());
-                this.userTelephone.setText(user.getTelephone());
-                this.userLocation.setText(user.getLocation());
-
-                this.etUsername.setText(user.getUsername());
-                this.etTelephone.setText(user.getTelephone());
-                this.etEmail.setText(user.getEmail());
-                this.etLocation.setText(user.getLocation());
-            }else {
                 this.editLayout.setVisibility(View.VISIBLE);
-                this.dataLayout.setVisibility(View.GONE);
+                if (user.getUsername().trim().isEmpty()){
+                    if (mFirebaseAuth.getCurrentUser() != null && mFirebaseAuth.getCurrentUser().getDisplayName() != null){
+                        etUsername.setText(mFirebaseAuth.getCurrentUser().getDisplayName());
+                    }
+                }else {
+                    etUsername.setText(user.getUsername());
+                }
+
+                if (user.getTelephone().trim().isEmpty()){
+                    if (mFirebaseAuth.getCurrentUser() != null && mFirebaseAuth.getCurrentUser().getPhoneNumber() != null){
+                        this.etTelephone.setText(mFirebaseAuth.getCurrentUser().getPhoneNumber());
+                    }
+                }else {
+                    etTelephone.setText(user.getTelephone());
+                }
+
+                if (user.getEmail().trim().isEmpty()){
+                    if (mFirebaseAuth.getCurrentUser() != null && mFirebaseAuth.getCurrentUser().getEmail() != null) {
+                        this.etEmail.setText(mFirebaseAuth.getCurrentUser().getEmail());
+                    }
+                }else {
+                    etEmail.setText(user.getEmail());
+                }
+
+                this.etLocation.setText(user.getLocation());
             }
         });
-
-        profileViewModel.viewState().observe(this, this::switchState);
-
-        this.updateProfile.setOnClickListener(v -> this.switchState(0));
 
         this.saveProfile.setOnClickListener(v -> {
             EstaUser estaUser = new EstaUser();
@@ -108,39 +105,12 @@ public class ProfileActivity extends BaseActivity {
         });
     }
 
-    private void setDefaults() {
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
-        if (user != null) {
-
-            if (user.getDisplayName() != null) {
-                this.username.setText(user.getDisplayName());
-                this.etUsername.setText(user.getDisplayName());
-            }
-
-            if (user.getEmail() != null) {
-                this.userEmail.setText(user.getEmail());
-                this.etEmail.setText(user.getEmail());
-            }
-
-            if (user.getPhoneNumber() != null) {
-                this.userTelephone.setText(user.getPhoneNumber());
-                this.etTelephone.setText(user.getPhoneNumber());
-            }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
-
-    public void switchState(int state) {
-        switch (state) {
-            case 0:
-                dataLayout.setVisibility(View.GONE);
-                editLayout.setVisibility(View.VISIBLE);
-                break;
-            case 1:
-                dataLayout.setVisibility(View.VISIBLE);
-                editLayout.setVisibility(View.GONE);
-                break;
-        }
-    }
-
 }

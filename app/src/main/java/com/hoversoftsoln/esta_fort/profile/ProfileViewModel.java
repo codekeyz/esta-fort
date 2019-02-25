@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -21,7 +22,6 @@ public class ProfileViewModel extends ViewModel {
 
     private MutableLiveData<EstaUser> estaUser;
     private MutableLiveData<Boolean> loadingService;
-    private MutableLiveData<Integer> state;
 
     private DocumentReference userRefence;
     private ListenerRegistration userDocListenerReg;
@@ -38,9 +38,6 @@ public class ProfileViewModel extends ViewModel {
             if (loadingService == null) {
                 loadingService = new MutableLiveData<>();
             }
-            if (state == null) {
-                state = new MutableLiveData<>();
-            }
             loadEstaUser();
         }
         return estaUser;
@@ -53,23 +50,15 @@ public class ProfileViewModel extends ViewModel {
         return loadingService;
     }
 
-    public LiveData<Integer> viewState() {
-        if (state == null) {
-            state = new MutableLiveData<>();
-        }
-        return state;
-    }
-
     private void loadEstaUser() {
         this.loadingService.postValue(true);
         this.userDocListenerReg = this.userRefence.addSnapshotListener((documentSnapshot, e) -> {
             this.loadingService.postValue(false);
             if (documentSnapshot != null) {
                 EstaUser user= documentSnapshot.toObject(EstaUser.class);
-                this.estaUser.postValue(user);
-                this.state.postValue(1);
-            }else {
-                this.state.postValue(0);
+                if (user != null) {
+                    this.estaUser.postValue(user);
+                }
             }
         });
     }
@@ -80,7 +69,7 @@ public class ProfileViewModel extends ViewModel {
         this.userDocListenerReg.remove();
     }
 
-    public void updateUserAccount(EstaUser estaUser) {
+    void updateUserAccount(EstaUser estaUser) {
         this.loadingService.postValue(true);
         Map<String, Object> datamap = new HashMap<>();
         datamap.put("username", estaUser.getUsername());
@@ -91,8 +80,6 @@ public class ProfileViewModel extends ViewModel {
             this.loadingService.postValue(false);
             if (task.isSuccessful()){
                 this.estaUser.postValue(estaUser);
-            }else {
-                this.state.postValue(0);
             }
         });
     }
