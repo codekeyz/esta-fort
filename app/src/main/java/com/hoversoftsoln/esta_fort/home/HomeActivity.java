@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.hoversoftsoln.esta_fort.R;
@@ -28,9 +29,6 @@ public class HomeActivity extends BaseActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-
-    @BindView(R.id.fab_menu)
-    FloatingActionButton fab;
 
     @BindView(R.id.loading)
     MaterialProgressBar loader;
@@ -65,11 +63,6 @@ public class HomeActivity extends BaseActivity {
         homeViewModel.getServices().observe(this, data -> {
             this.serviceAdapter.setServiceList(data);
         });
-
-        fab.setOnClickListener(v -> {
-            Intent intent = new Intent(this, DriverActivity.class);
-            startActivity(intent);
-        });
     }
 
     private void init() {
@@ -78,6 +71,15 @@ public class HomeActivity extends BaseActivity {
         servicesRV.setLayoutManager(new LinearLayoutManager(this));
         serviceAdapter = new ServiceAdapter(this);
         servicesRV.setAdapter(serviceAdapter);
+
+        serviceAdapter.setOnServiceClickListener(service -> {
+            if (service.getType() == 100){
+                Intent intent = new Intent(this, DriverActivity.class);
+                startActivity(intent);
+            }else {
+                Toast.makeText(this, "Service not yet Supported", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

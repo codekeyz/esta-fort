@@ -25,10 +25,16 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
     private List<Service> serviceList;
     private Context context;
 
-    public ServiceAdapter(Context context) {
+    private OnServiceClickListener onServiceClickListener;
+
+    ServiceAdapter(Context context) {
         this.context = context;
         this.serviceList = new ArrayList<>();
         this.setHasStableIds(true);
+    }
+
+    public void setOnServiceClickListener(OnServiceClickListener onServiceClickListener) {
+        this.onServiceClickListener = onServiceClickListener;
     }
 
     @NonNull
@@ -70,9 +76,12 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
         @BindView(R.id.service_item_desc)
         TextView desc;
 
+        private View view;
+
         ServiceViewHolder(@NonNull View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            this.view = itemView;
+            ButterKnife.bind(this, view);
         }
 
         void bind(Service service) {
@@ -83,6 +92,16 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
                     .into(image);
             numrating.setText(context.getString(R.string.fmt_num_ratings, service.getRating()));
             rating.setRating((float) service.getRating());
+
+            this.view.setOnClickListener(v -> {
+                if (onServiceClickListener != null) {
+                    onServiceClickListener.onclicK(service);
+                }
+            });
         }
+    }
+
+    public interface OnServiceClickListener {
+        void onclicK(Service service);
     }
 }
