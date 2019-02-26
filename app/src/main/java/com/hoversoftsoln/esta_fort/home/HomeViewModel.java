@@ -24,7 +24,7 @@ public class HomeViewModel extends ViewModel {
 
     public HomeViewModel() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        this.servicesCollection = db.collection("Services").orderBy("type", Query.Direction.DESCENDING).orderBy("rating", Query.Direction.DESCENDING);
+        this.servicesCollection = db.collection("Services").orderBy("type", Query.Direction.DESCENDING);
     }
 
     LiveData<List<Service>> getServices() {
