@@ -3,7 +3,6 @@ package com.hoversoftsoln.esta_fort.home;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
-import android.util.Log;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -38,14 +37,12 @@ public class HomeViewModel extends ViewModel {
         return services;
     }
 
-
     LiveData<Boolean> loadingService() {
         if (loadingService == null) {
             loadingService = new MutableLiveData<>();
         }
         return loadingService;
     }
-
 
     private void loadServices() {
         this.loadingService.postValue(true);
@@ -63,7 +60,6 @@ public class HomeViewModel extends ViewModel {
             }
         });
     }
-
 
     @Override
     protected void onCleared() {

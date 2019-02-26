@@ -183,7 +183,7 @@ public class DriverActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == PROFILE_CHECK) {
-            if (resultCode == RESULT_OK && !isEmpty(estaUser)){
+            if (resultCode == RESULT_OK){
                 Snackbar.make(parentLayout, "Profile has been successfully validated", Snackbar.LENGTH_SHORT).show();
                 driverViewModel.continueBooking(DriverActivity.this);
             }else {
