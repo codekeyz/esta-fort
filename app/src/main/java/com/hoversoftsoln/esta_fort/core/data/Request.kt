@@ -9,6 +9,8 @@ data class Request(
         @set:PropertyName("userID") var userID: String = "",
         @set:PropertyName("userName")
         @get:PropertyName("userName") var userName: String = "",
+        @set:PropertyName("userTelephone")
+        @get:PropertyName("userTelephone") var userTelephone: String = "",
         @get:PropertyName("driverID")
         @set:PropertyName("driverID") var driverID: String = "",
         @set:PropertyName("driverName")
