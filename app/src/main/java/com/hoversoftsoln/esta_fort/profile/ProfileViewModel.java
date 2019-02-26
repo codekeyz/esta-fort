@@ -5,18 +5,14 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.SetOptions;
-import com.hoversoftsoln.esta_fort.data.EstaUser;
+import com.hoversoftsoln.esta_fort.core.data.EstaUser;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -99,7 +95,6 @@ public class ProfileViewModel extends ViewModel {
         userRefence.set(datamap, SetOptions.merge()).addOnCompleteListener(task -> {
             this.loadingService.postValue(false);
             if (task.isSuccessful()){
-                Toast.makeText(activity, estaUser.toString(), Toast.LENGTH_SHORT).show();
                 this.estaUser.postValue(estaUser);
                 if (!isEmpty(estaUser)) {
                     activity.setResult(RESULT_OK, new Intent());

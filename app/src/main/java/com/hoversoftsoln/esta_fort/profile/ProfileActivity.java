@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.hoversoftsoln.esta_fort.R;
 import com.hoversoftsoln.esta_fort.core.BaseActivity;
-import com.hoversoftsoln.esta_fort.data.EstaUser;
+import com.hoversoftsoln.esta_fort.core.data.EstaUser;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
