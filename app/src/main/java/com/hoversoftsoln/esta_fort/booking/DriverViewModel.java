@@ -36,7 +36,7 @@ public class DriverViewModel extends ViewModel {
         this.requestsCollection = db.collection("Requests");
     }
 
-    public LiveData<List<Driver>> getDrivers() {
+    LiveData<List<Driver>> getDrivers() {
         if (drivers == null) {
             drivers = new MutableLiveData<>();
             if (loadingService == null) {
@@ -47,14 +47,14 @@ public class DriverViewModel extends ViewModel {
         return drivers;
     }
 
-    public LiveData<Boolean> loadingService() {
+    LiveData<Boolean> loadingService() {
         if (loadingService == null) {
             loadingService = new MutableLiveData<>();
         }
         return loadingService;
     }
 
-    public LiveData<Pair<Boolean, Boolean>> requestService() {
+    LiveData<Pair<Boolean, Boolean>> requestService() {
         if (requestService == null) {
             requestService = new MutableLiveData<>();
         }
@@ -95,7 +95,9 @@ public class DriverViewModel extends ViewModel {
     }
 
     void onDriverClick(Activity context, Driver driver) {
-        if (dialog == null) {
+        if (dialog != null) {
+            dialog = null;
+        }
             dialog = new AlertDialog.Builder(context)
                     .setTitle("Request Shuttle")
                     .setMessage("You are requesting a shuttle. " + driver.getUsername())
@@ -110,7 +112,6 @@ public class DriverViewModel extends ViewModel {
                     })
                     .setNegativeButton("Cancel", (dialog, which) -> dialog.cancel())
                     .create();
-        }
 
         if (!dialog.isShowing()) {
             dialog.show();
