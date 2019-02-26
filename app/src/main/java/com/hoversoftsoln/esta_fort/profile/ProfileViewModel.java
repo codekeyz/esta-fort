@@ -1,10 +1,13 @@
 package com.hoversoftsoln.esta_fort.profile;
 
+import android.app.Activity;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -17,6 +20,8 @@ import com.hoversoftsoln.esta_fort.data.EstaUser;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static android.app.Activity.RESULT_OK;
 
 public class ProfileViewModel extends ViewModel {
 
@@ -82,5 +87,36 @@ public class ProfileViewModel extends ViewModel {
                 this.estaUser.postValue(estaUser);
             }
         });
+    }
+
+    void updateUserAccountWithResult(Activity activity, EstaUser estaUser) {
+        this.loadingService.postValue(true);
+        Map<String, Object> datamap = new HashMap<>();
+        datamap.put("username", estaUser.getUsername());
+        datamap.put("email", estaUser.getEmail());
+        datamap.put("telephone", estaUser.getTelephone());
+        datamap.put("location", estaUser.getLocation());
+        userRefence.set(datamap, SetOptions.merge()).addOnCompleteListener(task -> {
+            this.loadingService.postValue(false);
+            if (task.isSuccessful()){
+                Toast.makeText(activity, estaUser.toString(), Toast.LENGTH_SHORT).show();
+                this.estaUser.postValue(estaUser);
+                if (!isEmpty(estaUser)) {
+                    activity.setResult(RESULT_OK, new Intent());
+                    activity.finish();
+                } else {
+                    Toast.makeText(activity, "Make sure all data is provided & try again", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private boolean isEmpty(EstaUser estaUser) {
+        if (estaUser == null) {
+            return true;
+        } else return estaUser.getUsername().trim().isEmpty() ||
+                estaUser.getEmail().trim().isEmpty() ||
+                estaUser.getTelephone().trim().isEmpty() ||
+                estaUser.getLocation().trim().isEmpty();
     }
 }

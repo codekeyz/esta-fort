@@ -1,6 +1,7 @@
 package com.hoversoftsoln.esta_fort.profile;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
@@ -9,10 +10,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
+............300000000000020
+import com.go03
+ogle.firebase.auth.FirebaseAuth;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.hoversoftsoln.esta_fort.R;
 import com.hoversoftsoln.esta_fort.core.BaseActivity;
 import com.hoversoftsoln.esta_fort.data.EstaUser;
@@ -20,6 +22,8 @@ import com.hoversoftsoln.esta_fort.data.EstaUser;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
+
+import static com.hoversoftsoln.esta_fort.utils.Constants.PROFILE_CHECK;
 
 public class ProfileActivity extends BaseActivity {
 
@@ -43,6 +47,7 @@ public class ProfileActivity extends BaseActivity {
     @BindView(R.id.loading)
     MaterialProgressBar loader;
     private FirebaseAuth mFirebaseAuth;
+    private int TASK;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,6 +58,11 @@ public class ProfileActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Profile");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            TASK = intent.getIntExtra("TASK", 0);
+        }
 
         profileViewModel = ViewModelProviders.of(this).get(ProfileViewModel.class);
 
@@ -101,6 +111,10 @@ public class ProfileActivity extends BaseActivity {
             estaUser.setUsername(etUsername.getText().toString());
             estaUser.setLocation(etLocation.getText().toString());
             estaUser.setTelephone(etTelephone.getText().toString());
+            if (TASK == PROFILE_CHECK){
+                this.profileViewModel.updateUserAccountWithResult(ProfileActivity.this, estaUser);
+                return;
+            }
             this.profileViewModel.updateUserAccount(estaUser);
         });
     }
