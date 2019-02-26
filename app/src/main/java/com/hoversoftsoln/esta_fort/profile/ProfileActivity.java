@@ -10,9 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-............300000000000020
-import com.go03
-ogle.firebase.auth.FirebaseAuth;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.hoversoftsoln.esta_fort.R;
