@@ -53,8 +53,12 @@
 
         <ImageView
             android:id="@+id/emailthread_item_avatar"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:focusable="true"
+            android:clickable="true"
+            android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="2dp"
             android:layout_marginStart="16dp"
