@@ -87,7 +87,7 @@ public class RequestsActivity extends BaseActivity {
         requestsRV.setHasFixedSize(true);
         requestsRV.setLayoutManager(new LinearLayoutManager(this));
 
-        requestAdapter = new RequestAdapter();
+        requestAdapter = new RequestAdapter(RequestsActivity.this);
         requestsRV.setAdapter(requestAdapter);
     }
 
