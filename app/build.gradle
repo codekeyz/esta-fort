@@ -4,6 +4,23 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-kapt'
 
 android {
+    signingConfigs {
+        release {
+            keyAlias 'CodeKeyzKeyz'
+            keyPassword 'Codemonster123'
+            storeFile file('EstaFortKey.jks')
+            storePassword 'Codemonster123'
+        }
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def newApkName = applicationId + "-" + variant.versionName + ".apk"
+            outputFileName = new File(variant.name, newApkName)
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/proguard/androidx-annotations.pro'
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.hoversoftsoln.esta_fort"
@@ -17,8 +34,9 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     compileOptions {
@@ -30,8 +48,8 @@ android {
 dependencies {
     // Android Support Libraries
     implementation 'com.android.support:appcompat-v7:28.0.0'
-//    implementation 'com.android.support:support-media-compat:28.0.0'
-//    implementation 'com.android.support:support-v4:28.0.0'
+    //    implementation 'com.android.support:support-media-compat:28.0.0'
+    //    implementation 'com.android.support:support-v4:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation 'com.android.support:design:28.0.0'
     implementation 'com.android.support:multidex:1.0.3'
@@ -45,7 +63,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.6'
     implementation 'com.google.firebase:firebase-auth:16.1.0'
     implementation 'com.google.firebase:firebase-firestore:18.0.1'
-    implementation "com.google.firebase:firebase-messaging:17.3.3"
+    implementation 'com.google.firebase:firebase-messaging:17.3.3'
     implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
     // FirebaseUI for Firebase Auth
     implementation 'com.firebaseui:firebase-ui-auth:4.3.1'
@@ -68,5 +86,3 @@ dependencies {
 repositories {
     mavenCentral()
 }
-
-//
