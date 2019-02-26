@@ -9,8 +9,12 @@ data class Request(
         @set:PropertyName("userID") var userID: String = "",
         @set:PropertyName("userName")
         @get:PropertyName("userName") var userName: String = "",
-        @set:PropertyName("userTelephone")
-        @get:PropertyName("userTelephone") var userTelephone: String = "",
+        @set:PropertyName("driverTelephone")
+        @get:PropertyName("driverTelephone") var driverTelephone: String = "",
+        @get:PropertyName("is_completed")
+        @set:PropertyName("is_completed") var iscompleted: Boolean = false,
+        @get:PropertyName("is_cancelled")
+        @set:PropertyName("is_cancelled") var iscancelled: Boolean = false,
         @get:PropertyName("driverID")
         @set:PropertyName("driverID") var driverID: String = "",
         @set:PropertyName("driverName")
