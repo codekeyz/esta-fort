@@ -28,6 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
+import static android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP;
 import static com.hoversoftsoln.esta_fort.utils.Constants.RC_SIGN_IN;
 import static com.hoversoftsoln.esta_fort.utils.Constants.SPLASH_TIME_OUT;
 
@@ -38,23 +39,12 @@ public class SplashActivity extends BaseActivity {
     MaterialProgressBar materialProgressBar;
     @BindView(R.id.parent)
     ConstraintLayout parentLayout;
-    private SplashViewModel splashViewModel;
-    private FirebaseUser user;
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        user = FirebaseAuth.getInstance().getCurrentUser();
-    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
-
-        // View model
-        splashViewModel = ViewModelProviders.of(this).get(SplashViewModel.class);
 
         new Handler().postDelayed(() -> {
 
@@ -79,13 +69,14 @@ public class SplashActivity extends BaseActivity {
                 .setLogo(R.mipmap.ic_launcher)
                 .setIsSmartLockEnabled(false)
                 .build();
+        intent.setFlags(FLAG_ACTIVITY_SINGLE_TOP);
 
         startActivityForResult(intent, RC_SIGN_IN);
-        splashViewModel.setIsSigningIn(true);
     }
 
     private boolean shouldStartSignIn() {
-        return ( !splashViewModel.IsSigningIn() && user == null);
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        return (currentUser == null);
     }
 
     @Override
@@ -95,11 +86,7 @@ public class SplashActivity extends BaseActivity {
 
         // RC_SIGN_IN is the request code you passed into startActivityForResult(...) when starting the sign in flow.
         if (requestCode == RC_SIGN_IN) {
-            splashViewModel.setIsSigningIn(false);
-
             IdpResponse response = IdpResponse.fromResultIntent(data);
-
-            Log.d("GooglePlay %s", String.valueOf(GoogleApiAvailability.getInstance().getClientVersion(this)));
 
             // Successfully signed in
             if (resultCode == RESULT_OK && !shouldStartSignIn()) {
