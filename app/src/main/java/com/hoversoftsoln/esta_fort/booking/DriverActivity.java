@@ -19,7 +19,8 @@ import android.widget.Toast;
 
 import com.hoversoftsoln.esta_fort.R;
 import com.hoversoftsoln.esta_fort.core.BaseActivity;
-import com.hoversoftsoln.esta_fort.data.EstaUser;
+import com.hoversoftsoln.esta_fort.core.data.Driver;
+import com.hoversoftsoln.esta_fort.core.data.EstaUser;
 import com.hoversoftsoln.esta_fort.profile.ProfileActivity;
 import com.hoversoftsoln.esta_fort.profile.ProfileViewModel;
 import com.hoversoftsoln.esta_fort.request.RequestsActivity;
@@ -134,7 +135,6 @@ public class DriverActivity extends BaseActivity {
 
 
         driverAdapter.setOnDriverClick(driver -> {
-
             if (isEmpty(estaUser)) {
                 showDetailDialog();
                 return;
@@ -184,8 +184,7 @@ public class DriverActivity extends BaseActivity {
 
         if (requestCode == PROFILE_CHECK) {
             if (resultCode == RESULT_OK){
-                Snackbar.make(parentLayout, "Profile has been successfully validated", Snackbar.LENGTH_SHORT).show();
-                driverViewModel.continueBooking(DriverActivity.this);
+                Snackbar.make(parentLayout, "Profile has been successfully validated. You can request now", Snackbar.LENGTH_SHORT).show();
             }else {
                 Snackbar.make(parentLayout, "Profile validation completed with errors. Check and Try again", Snackbar.LENGTH_LONG).show();
             }

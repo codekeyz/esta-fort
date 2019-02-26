@@ -29,7 +29,6 @@ public class DriverViewModel extends ViewModel {
     private Query driversCollection;
     private CollectionReference requestsCollection;
     private ListenerRegistration driversRegistration;
-    private Driver savedDriver;
 
     public DriverViewModel() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -96,7 +95,6 @@ public class DriverViewModel extends ViewModel {
     }
 
     void onDriverClick(Activity context, Driver driver) {
-        this.savedDriver = driver;
         if (dialog != null) {
             dialog = null;
         }
@@ -111,10 +109,8 @@ public class DriverViewModel extends ViewModel {
                         request.setDateCreated(new Date().getTime());
                         request.setStatus(0);
                         sendRequest(request);
-                        savedDriver = null;
                     })
                     .setNegativeButton("Cancel", (dialog, which) -> {
-                        savedDriver = null;
                         dialog.cancel();
                     })
                     .create();
@@ -122,9 +118,5 @@ public class DriverViewModel extends ViewModel {
         if (!dialog.isShowing()) {
             dialog.show();
         }
-    }
-
-    void continueBooking(Activity context){
-        onDriverClick(context, savedDriver);
     }
 }
