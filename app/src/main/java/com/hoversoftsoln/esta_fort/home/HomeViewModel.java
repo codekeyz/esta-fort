@@ -5,10 +5,10 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.util.Log;
 
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
+import com.google.firebase.firestore.Query;
 import com.hoversoftsoln.esta_fort.core.data.Service;
 
 import java.util.ArrayList;
@@ -19,15 +19,15 @@ public class HomeViewModel extends ViewModel {
     private MutableLiveData<List<Service>> services;
     private MutableLiveData<Boolean> loadingService;
 
-    private CollectionReference servicesCollection;
+    private Query servicesCollection;
     private ListenerRegistration servicesRegistration;
 
     public HomeViewModel() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        this.servicesCollection = db.collection("Services");
+        this.servicesCollection = db.collection("Services").orderBy("type", Query.Direction.DESCENDING).orderBy("rating", Query.Direction.DESCENDING);
     }
 
-    public LiveData<List<Service>> getServices() {
+    LiveData<List<Service>> getServices() {
         if (services == null) {
             services = new MutableLiveData<>();
             if (loadingService == null) {
@@ -39,7 +39,7 @@ public class HomeViewModel extends ViewModel {
     }
 
 
-    public LiveData<Boolean> loadingService() {
+    LiveData<Boolean> loadingService() {
         if (loadingService == null) {
             loadingService = new MutableLiveData<>();
         }
@@ -52,7 +52,6 @@ public class HomeViewModel extends ViewModel {
         List<Service> serviceList = new ArrayList<>();
         this.servicesRegistration = this.servicesCollection.addSnapshotListener((queryDocumentSnapshots, e) -> {
             this.loadingService.postValue(false);
-            Log.d("Document Data %s", queryDocumentSnapshots.getDocuments().toString());
             if (queryDocumentSnapshots != null) {
                 serviceList.clear();
                 for (DocumentSnapshot d :
