@@ -107,9 +107,12 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
                     result = "Confirmed";
                     break;
                 case 2:
-                    result = "In Progress";
+                    result = "Driver has arrived";
                     break;
                 case 3:
+                    result = "In Progress";
+                    break;
+                case 4:
                     result = "Completed";
                     break;
             }
